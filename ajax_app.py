@@ -159,10 +159,12 @@ class AjaxApp(object):
 
         self.api = API(self)
 
-    MAILING_LIST = ["hn-cms-relval@cern.ch", "hn-cms-trigger-performance@cern.ch",
-            "hn-cms-muon-object-validation@cern.ch"]
+    MAILING_LIST = ["hn-cms-relval@cern.ch",
+                    "hn-cms-trigger-performance@cern.ch",
+                    "hn-cms-muon-object-validation@cern.ch"]
 
-    #MAILING_LIST = ["anorkus@cern.ch", "anorkus@gmail.com", "franzoni@cern.ch"] #testing mailing list
+    # Testing mailing list
+    # MAILING_LIST = ["pdmvserv@cern.ch"]
     VALIDATION_STATUS = "VALIDATION_STATUS"
     COMMENTS = "COMMENTS"
     LINKS = "LINKS"
@@ -497,7 +499,6 @@ Links: %s
             if (cat.upper() == 'HLT'): #if the category is HLT  -> send email to trigger hn and a reply to orginal with text to diff hn
                 hlt_msg_id = email.utils.make_msgid()
                 hn_address = 'hn-cms-trigger-performance@cern.ch'
-                #hn_address = 'anorkus@cern.ch'  # Testing adresses
                 if len(returnedStatusValueOld[1].split(",")) == 1:
                     self.sendMailOnChanges(msgText, msgSubject, None, hlt_msg_id,
                             userName, hn_address) #send message to other HN adress without threading
@@ -522,7 +523,6 @@ The full details was sent to %s find it there""" %(relName.upper(), cat.upper(),
             elif (cat.upper() == 'RECONSTRUCTION') and (statusKind.upper() == 'MUON'): #same for Reco Muon as for all HLT
                 reco_msg_id = email.utils.make_msgid()
                 hn_address = 'hn-cms-muon-object-validation@cern.ch'
-                #hn_address = 'franzoni@cern.ch' # Testing adresses
                 if len(returnedStatusValueOld[1].split(",")) == 1:
                     self.sendMailOnChanges(msgText, msgSubject, None, reco_msg_id,
                             userName, hn_address) #mail to Muon HN without threading
@@ -683,9 +683,7 @@ The full details was sent to %s find it there""" %(relName.upper(), cat.upper(),
             send_to += [self.MAILING_LIST[0]]
         else:
             send_to += [diff_HN_adress]
-        #if username != False:   #send email copy to the sender himself
-        #    email = getUserEmail(username, Session)
-        #    send_to.append(email)
+
         reply_to.append(send_from) #make a reply header to sender+receivers of the email.
         reply_to.append("hn-cms-relval@cern.ch")
         msg['reply-to'] = COMMASPACE.join(reply_to)
@@ -772,11 +770,11 @@ The full details was sent to %s find it there""" %(relName.upper(), cat.upper(),
                 msg['In-Reply-To'] = org_message_ID
                 msg['References'] = org_message_ID
 
-            # send_from = "PdmV.ValDb@cern.ch"
             if username != False:
                 send_from = getUserEmail(username, Session)
             else:
-                send_from = "anorkus@cern.ch"
+                send_from = "pdmvserv@cern.ch"
+
             msg['From'] = send_from
 
             send_to = [self.MAILING_LIST[index]]
