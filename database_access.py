@@ -189,7 +189,7 @@ RELMON_URL = 'RELMON_URL'
 
 possible_status_list = ["OK", "NOT YET DONE", "FAILURE", "CHANGES EXPECTED",
         "IN PROGRESS", "OK TO BE SIGNED-OFF BY THE VALIDATORS",
-        "FAILURE TO BE SIGNED-OFF BY THE VALIDATORS", None]
+        "FAILURE TO BE SIGNED-OFF BY THE VALIDATORS", "KNOWN ISSUE", None]
 
 possible_category_list = ["Reconstruction", "HLT", "PAGs", "IN", "GEN"] ## IN == HIN
 possible_subcatrgory_list = ["Data", "FullSim", "FastSim", "Gen"]

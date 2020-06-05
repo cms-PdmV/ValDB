@@ -95,6 +95,7 @@ function tableController($scope, $http, $location){
             "OK" : "media/choice-yes.gif",
             "FAILURE" : "media/choice-no.gif",
             "CHANGES EXPECTED" : "media/target.gif",
+            "KNOWN ISSUE" : "media/warning.gif",
             "IN PROGRESS" : "media/wip.gif",
             "OK TO BE SIGNED-OFF BY THE VALIDATORS" : "media/thumbs-up.gif",
             "FAILURE TO BE SIGNED-OFF BY THE VALIDATORS":"media/thumbs-down.gif",
@@ -434,6 +435,7 @@ app.directive("editModal", function($http){
       '      <option ng-selected="details[\'\'+latest_version+\'\'][\'VALIDATION_STATUS\'] == \'OK\'" value="OK">OK</option>'+
       '      <option ng-selected="details[\'\'+latest_version+\'\'][\'VALIDATION_STATUS\'] == \'FAILURE\'" value="FAILURE">FAILURE</option>'+
       '      <option ng-selected="details[\'\'+latest_version+\'\'][\'VALIDATION_STATUS\'] == \'CHANGES EXPECTED\'" value="CHANGES EXPECTED">CHANGES EXPECTED</option>'+
+      '      <option ng-selected="details[\'\'+latest_version+\'\'][\'VALIDATION_STATUS\'] == \'KNOWN ISSUE\'" value="KNOWN ISSUE">KNOWN ISSUE</option>'+
       '      <option ng-selected="details[\'\'+latest_version+\'\'][\'VALIDATION_STATUS\'] == \'IN PROGRESS\'" value="IN PROGRESS">IN PROGRESS</option>'+
       '      <option ng-selected="details[\'\'+latest_version+\'\'][\'VALIDATION_STATUS\'] == \'OK TO BE SIGNED-OFF BY THE VALIDATORS\'" value="OK TO BE SIGNED-OFF BY THE VALIDATORS">OK TO BE SIGNED-OFF BY THE VALIDATORS</option>'+
       '      <option ng-selected="details[\'\'+latest_version+\'\'][\'VALIDATION_STATUS\'] == \'FAILURE TO BE SIGNED-OFF BY THE VALIDATORS\'" value="FAILURE TO BE SIGNED-OFF BY THE VALIDATORS">FAILURE TO BE SIGNED-OFF BY THE VALIDATORS</option>'+
@@ -537,7 +539,7 @@ app.directive("addRelease", function($http){
       '    <div class="control-group">'+
       '      <label class="control-label">Validation campaign name:</label>'+
       '      <div class="controls">'+
-      '        <input type="text" class="large" maxlength="20" ng-model="release_name" name="release_name" required></input>'+
+      '        <input type="text" class="large" style="width: 300px;" maxlength="35" ng-model="release_name" name="release_name" required></input>'+
       '        <span class="error" ng-show="addReleaseForm.release_name.$error.required">Required!</span>'+
       '      </div>'+
       '    </div>'+
