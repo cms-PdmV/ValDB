@@ -1,0 +1,198 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang="en" ng-app="strap">
+  <head>
+    <title>The PdmV Validation DB</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link href="media/bootstrap/2.1.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="media/bootstrap/2.1.0/css/bootstrap-responsive.css" rel="stylesheet">
+    <script type="text/javascript" src="media/angular-1.0.7.min.js"></script>
+    <script type="text/javascript" src="media/underscore-1.5.1.min.js"></script>
+    
+    <script type="text/javascript" src="media/ui-bootstrap-custom-0.1.0-SNAPSHOT.min.js"></script>
+    <script type="text/javascript" src="media/validator_controller.js"></script>
+    <link href="media/menu.css" rel="stylesheet">
+  </head>
+  <body ng-controller="tableController" style="background-color: #ADD8E6">
+    <div class="container">
+      <div class="row">
+        <div class="span11">
+          <h1  id="title" style="text-align:center; font-family:verdana">ValDb: The PdmV Validation DB</h1>
+        </div>
+        <div class="span1">
+          <span id='userNameButton'>%USERNAME</span>
+          <input name = "logOutBTN" class="btn" type="button" value="Logout" onclick="logoutUser();"/>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="span9">
+          <div>
+            <label style="font-family:verdana; font-size:18px"><br></label>
+            <form class="form-inline">
+              <label for="releaseName" style="display:inline; font-family:verdana; font-size:18px">Select one validation campaign</label>
+              <input type="text" ng-model="searchableName"/>
+              <button class="btn" ng-click="getReleaseList()">OK</button>
+              <img ng-show="pendingRequests" ng-src="https://twiki.cern.ch/twiki/pub/TWiki/TWikiDocGraphics/processing-bg.gif"></img>
+              <span ng-show="showSearchLength">
+                Campaigns found: <b>{{releaseList.length}}</b>
+              </span>
+            </form>
+          </div>
+          <hr align="left" width="100%" size="4" style="background-color:black">
+          <div>
+            <label style="font-family:verdana; font-size:18px; display:inline">Validation Tables</label>
+            <br>
+          </div>
+          <div>
+            <h3 id="legend" style="text-align:left; font-family:verdana">Legend</h3>
+            <ul>
+              <li> 
+                <img width="16" alt="target" align="top" src="media/target.gif" height="16" border="0" /> : Changes are expected;
+              </li> 
+              <li> 
+                <img width="16" alt="choice-no" align="top" src="media/choice-no.gif" height="16" border="0" /> : Failure;
+              </li> 
+              <li> 
+                <img width="16" alt="choice-yes" align="top" src="media/choice-yes.gif" height="16" border="0" /> : OK;
+              </li> 
+              <li> 
+                <img width="16" alt="wip" align="top" src="media/wip.gif" height="16" border="0" /> : In progress;
+              </li> 
+              <li> 
+                <img width="16" alt="minus" align="top" src="media/minus.gif" height="16" border="0" /> : Not yet done;
+              </li> 
+              <li> 
+                <img width="16" alt="stop" align="top" src="media/thumbs-up.gif" height="16" border="0" /> : OK - to be signed-off by the validators;
+              </li>
+              <li> 
+                <img width="16" alt="stop" align="top" src="media/thumbs-down.gif" height="16" border="0" /> : Failure - to be signed-off by the validators;
+              </li>
+            </ul>
+          </div> <!--end of Legend <div>-->
+          <button type="btn btn-mini" ng-click="showAllMenus();">Show All </button>
+          <div ng-repeat="category in orderedMenu">
+            {{category.priority}}
+            <table border="0">
+              <tbody>
+                <tr>
+                  <td style="margin:0; padding:0;">
+                    <div ng-switch on="menus[category].name">
+                      <a class="Group" ng-click="showSubCategory(menus[category].name);" ng-href="#" ng-switch-when="IN">
+                        {{'H'+menus[category].name}}
+                      </a>
+                      <a class="Group" ng-click="showSubCategory(menus[category].name);" ng-href="#" ng-switch-default>
+                        {{menus[category].name}}
+                      </a>
+                    </div>
+                  </td>
+                  <td style="margin:0; padding:0;">
+                    <button type="btn btn-mini" ng-click="showAllSubMenus(menus[category].name);">Show All</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table> 
+             <div ng-repeat="subcategory in menus[category]['subcats']" ng-controller="ModalCtrl">
+               <!--     MODAL -->
+                  <div modal="shouldBeOpen" close="close()" style="display: block;max-height:500px;"> <!--hidden modal template-->
+                    <div class="modal-header">
+                      <h3>Validation campaign: <text>{{details['RELEASE_NAME']}}</text></h3>
+                      <h4><text>{{catSubCat}}</text></h4>
+                      <a ng-repeat="version in details['VERSIONS']" rel="tooltip" title="{{$index}}" ng-click="selectVersion(version);" ng-href="#">
+                        <!-- <i class="icon-asterisk"></i> -->
+                        rev-{{$index}}
+                        <i class="icon-arrow-right" ng-hide="underscore.last(details['VERSIONS']) == version"></i>
+                      </a>
+                    </div>  <!--end of modal header-->
+                    <div class="modal-body">
+                      <h4>Author: <text>{{details[''+selected_version+'']['USER_NAME']}}</text></h4>
+                      <h4>Validation Status: <text> {{details[''+selected_version+'']['VALIDATION_STATUS']}}</text> </h4>
+                      <p style="margin-bottom: 0px;">Comments:</p>
+                      <p ng-bind-html-unsafe="details[''+selected_version+'']['COMMENTS'] | newlines"></p>
+                      <p style="margin-bottom: 0px;">Links:</p>
+                      <p ng-bind-html-unsafe="details[''+selected_version+'']['LINKS'] | linkify"></p>
+                    </div> <!--end of modal body-->
+                    <div class="modal-footer">
+                      <div style="text-align:right;">Date: <text>{{details[''+selected_version+'']['META_DATE']}}</text></div>
+                      <button class="btn" ng-click="checkUserName(menus[category].name,subcategory.name)">Edit Information</button>
+                      <button class="btn btn-primary" ng-click="close()">Close</button>
+                    </div> <!--end of modal footer-->
+                  </div>
+                  <edit-modal release="details['RELEASE_NAME']" catSubCat="catSubCat"></edit-modal>
+               <!--     END OF MODAL             -->
+               <span ng-show="menus[category]['showSubCat']">
+                 <a class="SubCategory" ng-click="showTable(menus[category].name, subcategory.name);" ng-href="#">{{subcategory.name}}</a>
+                 <table class="table table-striped table-bordered table-condensed" style="border-color:black;" border="0" ng-show="subcategory.show">
+                   <tbody>
+                     <tr>
+                       <th ng-repeat="header in Headers[menus[category].name]">
+                        <div ng-switch on="header.name">
+                          <div  ng-switch-when="Release Name" ng-click="changeSort();">
+                            {{header["name"]}}
+                          </div>
+                          <div ng-switch-default>
+                            {{header["name"]}}
+                          </div>
+                        </div>
+                      </th>
+                     </tr>
+                     <tr ng-repeat="release in shortInfo | orderBy: 'RELEASE_NAME' : sort_ascending" ng-show="underscore.keys(release[menus[category].name][subcategory.name]).length > 0">
+                       <td ng-repeat="header in Headers[menus[category].name]" ng-switch on='header["name"]'>
+                         <div ng-switch-when="Release Name">
+                           {{release["RELEASE_NAME"]}}
+                         </div>
+                         <div ng-switch-when="RelMon">
+                           <span ng-switch on="release[menus[category].name][subcategory.name][header['db_name']] != undefined">
+                             <a ng-href="{{release[menus[category].name][subcategory.name][header['db_name']]}}" target="_blank" ng-switch-when="true">
+                               <img ng-src="{{status_icons['RelMon']}}">
+                             </a>
+                             <a ng-switch-when="false"></a>
+                           </span>
+                         </div>
+                         <div ng-switch-when="Info" ng-click="openDetailModal(release['RELEASE_NAME'],menus[category].name,subcategory.name,header['db_name'].toUpperCase(),header['name'],header['db_name'])">
+                           <a ng-href="{{release[menus[category].name][subcategory.name][header['db_name']]}}" target="_blank">
+                             <img ng-src="{{status_icons['Info']}}">
+                           </a>
+                         </div>
+                         <div ng-switch-default ng-click="openDetailModal(release['RELEASE_NAME'],menus[category].name,subcategory.name,header['db_name'].toUpperCase(),header['name'],header['db_name'])">
+                           <a ng-switch on = "underscore.isUndefined(release[menus[category].name][subcategory.name][header['db_name'].toUpperCase()]['status'])">
+                             <img ng-switch-when="true" ng-src="{{status_icons['NOT YET DONE']}}" rel="tooltip" title='NOT YET DONE'></img>
+                             <img ng-switch-when="false" ng-src='{{status_icons[release[menus[category].name][subcategory.name][header["db_name"].toUpperCase()]["status"]]}}' rel="tooltip"
+                                title='{{release[menus[category].name][subcategory.name][header["db_name"].toUpperCase()]["comments"]}}'></img>
+                           </a>
+                         </div>                       
+                       </td>
+                     </tr>
+                   </tbody>
+                 </table>
+               </span>
+            </div>
+          </div>
+          <add-release></add-release>
+          <search-user></search-user>
+          <remove-user></remove-user>
+          <add-user></add-user>
+        </div> <!--end of span9-->
+        <div class="span3">
+          <div>
+            <label style="font-family:verdana; font-size:18px">List of campaigns</label>
+            <span class="nullable">
+              <select ng-model="selectedRelease" ng-options="value for value in releaseList">
+                <option value="">------</option>
+              </select>
+            </span>
+            <img src="media/add_icon.png" alt="Add" style="vertical-align: center; margin-bottom:9px;" ng-click="addSelectedRelease();"/>
+            <div><input name = "showAlllLitsBTN" class="btnOK" type="button" value="Show All" ng-click="addAllReleases();"/></div>
+            <label style="font-family:verdana; font-size:18px; margin-top: 15px;">Selected campaigns:</label>
+            <br>
+            <ul id="list" style="list-style:none;">
+             <li ng-repeat="elem in shortInfoReleases">
+               <img src="media/remove_icon.png" alt="Remove" style="vertical-align: bottom;" ng-click="removeReleaseFromList(elem);">{{elem}}
+             </li>
+            </ul>
+          </div>
+        </div> <!--end of span3-->
+      </div> <!--end of row-->
+    </div> <!--end of container-->
+  </body>
+</html>
