@@ -94,8 +94,8 @@ function tableController($scope, $http, $location){
             "OK" : "media/choice-yes.gif",
             "FAILURE" : "media/choice-no.gif",
             "CHANGES EXPECTED" : "media/target.gif",
-            "KNOWN ISSUE" : "media/warning.gif",
             "IN PROGRESS" : "media/wip.gif",
+            "KNOWN ISSUE" : "media/mechanics.gif",
             "OK TO BE SIGNED-OFF BY THE VALIDATORS" : "media/thumbs-up.gif",
             "FAILURE TO BE SIGNED-OFF BY THE VALIDATORS":"media/thumbs-down.gif",
             "RelMon" : "media/arrowlink.gif",
@@ -427,8 +427,8 @@ app.directive("editModal", function($http){
       '      <option ng-selected="details[\'\'+latest_version+\'\'][\'VALIDATION_STATUS\'] == \'OK\'" value="OK">OK</option>'+
       '      <option ng-selected="details[\'\'+latest_version+\'\'][\'VALIDATION_STATUS\'] == \'FAILURE\'" value="FAILURE">FAILURE</option>'+
       '      <option ng-selected="details[\'\'+latest_version+\'\'][\'VALIDATION_STATUS\'] == \'CHANGES EXPECTED\'" value="CHANGES EXPECTED">CHANGES EXPECTED</option>'+
-      '      <option ng-selected="details[\'\'+latest_version+\'\'][\'VALIDATION_STATUS\'] == \'KNOWN ISSUE\'" value="KNOWN ISSUE">KNOWN ISSUE</option>'+
       '      <option ng-selected="details[\'\'+latest_version+\'\'][\'VALIDATION_STATUS\'] == \'IN PROGRESS\'" value="IN PROGRESS">IN PROGRESS</option>'+
+      '      <option ng-selected="details[\'\'+latest_version+\'\'][\'VALIDATION_STATUS\'] == \'KNOWN ISSUE\'" value="KNOWN ISSUE">KNOWN ISSUE</option>'+
       '    </select>'+
       '    <p>Comments:</p>'+
       '      <div>'+
