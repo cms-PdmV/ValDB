@@ -45,7 +45,7 @@ possible_status_list = ["CSC", "TAU", "TRACKING", "BTAG", "JET", "ECAL", "RPC", 
         "MUON", "MET", "ELECTRON", "TK", "HCAL", "DT", "SUMMARY", "TAU", "JET", "HIGGS",
         "TOP", "MUON", "PHOTON", "MET", "ELECTRON", "EXOTICA", "SUSY", "HEAVYFLAVOR",
         "SUMMARY", "B", "HIGGS", "FWD", "TOP", "SMP", "EXOTICA", "SUSY", "B2G", "HIN",
-        "CASTOR", "L1", "GEN", "SUMMARY"]
+        "CASTOR", "L1", "GEN", "MTD", "PPS", "SUMMARY"]
 
 # create a subclass and override the handler methods
 class MyHTMLParser(HTMLParser):

@@ -196,7 +196,7 @@ possible_subcatrgory_list = ["Data", "FullSim", "FastSim", "Gen"]
 
 reconstruction_status_list = ["CSC", "TAU", "TRACKING", "BTAG", "JET", "ECAL", "RPC",
         "PHOTON", "MUON", "MET", "ELECTRON", "TK", "HCAL", "DT", "CASTOR", "L1",
-        "HGCAL", "GEM", "SUMMARY"]
+        "HGCAL", "GEM", "MTD", "PPS", "SUMMARY"]
 
 hlt_status_list = ["TAU", "JET", "HIGGS", "TOP", "MUON", "PHOTON", "MET", "ELECTRON",
         "EXOTICA", "SUSY", "TRACKING", "BTAG", "SMP", "FWD", "B", "HIN", "B2G",
