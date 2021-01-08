@@ -94,7 +94,7 @@ class API(object):
             if cat[0].upper() == 'R': #get subCategory collumn list
                 defaultKeys = ["CSC", "TAU", "TRACKING", "BTAG", "JET", "ECAL",
                         "RPC", "PHOTON", "MUON", "MET", "ELECTRON", "TK", "HCAL",
-                        "DT", "CASTOR","L1", "HGCAL", "GEM", "MTD", "PPS", "SUMMARY"]
+                        "DT", "CASTOR","L1", "HGCAL", "GEM", "MTD", "PPS", "PF", "SUMMARY"]
 
             elif cat[0].upper() == 'H':
                 defaultKeys = ["TAU", "JET", "HIGGS", "TOP", "MUON", "PHOTON", "MET",
@@ -353,7 +353,7 @@ class AjaxApp(object):
         messageID_to_inform = ["","",""]
         reco_default_keys = ["CSC", "TAU", "TRACKING", "BTAG", "JET", "ECAL", "RPC",
                 "PHOTON", "MUON", "MET", "ELECTRON", "TK", "HCAL", "DT", "CASTOR",
-                "L1", "HGCAL", "GEM", "MTD", "PPS", "SUMMARY"]
+                "L1", "HGCAL", "GEM", "MTD", "PPS", "PF", "SUMMARY"]
 
         hlt_default_keys = ["TAU", "JET", "HIGGS", "TOP", "MUON", "PHOTON", "MET",
                 "ELECTRON", "EXOTICA", "SUSY", "SMP", "FWD", "BTAG", "TRACKING", "B",

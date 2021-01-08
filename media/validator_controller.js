@@ -76,7 +76,7 @@ function tableController($scope, $http, $location){
   $scope.Headers = {"Reconstruction":
       [{name:"Release Name", db_name:"Release_Name"}, {name:"Tracker", db_name:"TK"}, {name:"Ecal", db_name:"Ecal"}, {name:"HGcal", db_name:"HGCAL"}, {name:"Hcal", db_name:"Hcal"}, {name:"CASTOR", db_name:"CASTOR"}, {name:"DT",db_name:"DT"}, {name:"CSC", db_name:"CSC"}, 
        {name:"RPC", db_name:"RPC"}, {name:"GEM", db_name:"GEM"}, {name:"MTD", db_name:"MTD"}, {name:"PPS", db_name:"PPS"}, {name:"L1", db_name:"L1"}, {name:"Tracking", db_name:"Tracking"}, {name:"Electron", db_name:"Electron"}, {name:"Photon", db_name:"Photon"}, {name:"Muon", db_name:"Muon"}, 
-       {name:"Jet", db_name:"Jet"}, {name:"MET", db_name:"MET"}, {name:"bTag", db_name:"bTag"}, {name:"Tau", db_name:"Tau"}, {name:"Info", db_name:"Summary"}, {name:"RelMon", db_name:"RelMon"}],
+       {name:"Jet", db_name:"Jet"}, {name:"MET", db_name:"MET"}, {name:"bTag", db_name:"bTag"}, {name:"Tau", db_name:"Tau"}, {name:"PF", db_name: "PF"}, {name:"Info", db_name:"Summary"}, {name:"RelMon", db_name:"RelMon"}],
       "HLT":
       [{name:"Release Name", db_name:"Release_Name"}, {name:"Tracking", db_name:"Tracking"}, {name:"Electron", db_name:"Electron"}, {name:"Photon", db_name:"Photon"}, {name:"Muon", db_name:"Muon"}, 
        {name:"Jet", db_name:"Jet"}, {name:"MET", db_name: "MET"},{name:"bTag", db_name: "bTag"}, {name:"Tau", db_name:"Tau"},{name:"SMP", db_name:"SMP"}, {name:"Higgs", db_name:"Higgs"},{name:"Top", db_name:"Top"},
