@@ -350,6 +350,21 @@ def getReleaseFullDetails(cat, sub_cat, rel_name, status_kind, Session):
         logging.error("Error getting FullRelease details")
         logging.exception(e)
 
+def release_sort(releases):
+    def tupler(x):
+        split = x.split('_')
+        if split[0].isdigit():
+            if int(split[0]) < 500:
+                first = 2
+            else:
+                first = 1
+        else:
+            first = 0
+
+        return tuple([first, tuple([(int(el) if el.isdigit() else el) for el in split])])
+
+    return sorted(releases, key=tupler, reverse=True)
+
 # Returns release name(s) in JSON list, found by keyword
 def search(regexp, Session):
     session = Session()
@@ -361,21 +376,21 @@ def search(regexp, Session):
             if i.release_name not in release_list:
                 release_list.append(i.release_name)
         if regexp == "*" or regexp == "" or regexp == None:
-            release_list.sort(key=lambda x: x.lower())
+            release_list = release_sort(release_list)
             session.close()
             return json.dumps(release_list)
         elif not "*" in regexp:
             for name in release_list:
                 if regexp.lower() in name.lower():
                     new_list.append(name)
-            new_list.sort(key=lambda x: x.lower())
+            new_list = release_sort(new_list)
             session.close()
             return json.dumps(new_list)
         else:
             for name in release_list:
                 if fnmatch.fnmatch(name.upper(), regexp.upper()):
                     new_list.append(name)
-            new_list.sort(key=lambda x: x.lower())
+            new_list = release_sort(new_list)
             session.close()
             return json.dumps(new_list)
     except Exception as e:

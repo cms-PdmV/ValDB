@@ -1,0 +1,83 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang="en" ng-app="strap">
+  <head>
+    <title>The PdmV Validation DB</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link href="media/bootstrap/2.1.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="media/bootstrap/2.1.0/css/bootstrap-responsive.css" rel="stylesheet">
+    <script type="text/javascript" src="media/angular-1.0.7.min.js"></script>
+    <script type="text/javascript" src="media/underscore-1.5.1.min.js"></script>
+    
+    <script type="text/javascript" src="media/ui-bootstrap-custom-0.1.0-SNAPSHOT.min.js"></script>
+    <script type="text/javascript" src="media/controller.js"></script>
+    <link href="media/menu.css" rel="stylesheet">
+  </head>
+  <body ng-controller="tableController" style="background-color: #ADD8E6">
+    <div class="container">
+      <div class="row">
+        <div class="span11">
+          <h1  id="title" style="text-align:center; font-family:verdana">ValDb: The PdmV Validation DB</h1>
+        </div>
+        <div class="span1">
+          <span id='userNameButton'>jrumsevi</span>
+          <input name = "logOutBTN" class="btn" type="button" value="Logout" onclick="logoutUser();"/>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        <hr align="left" width="100%" size="2" style="background-color:black">
+        <div>
+          <h3 id="legend" style="text-align:left; font-family:verdana">Detailed legend</h3>
+          <ul>
+            <li>
+              <h4><img width="16" alt="target" align="top" src="media/target.gif" height="16" border="0" /> - Changes are expected</h4>
+              <ul>
+                <li>When observed difference/discrepancies are expected due to updates in GT and/or CMSSW</li>
+                <li>Validators understand the cause of discrepancies</li>
+                <li>Image:<br><a target="_blank" href="media/changes_expected.png"><img style="max-height: 150px;" src="media/changes_expected.png"/></a></li>
+              </ul>
+            </li>
+            <li>
+              <h4><img width="16" alt="choice-no" align="top" src="media/choice-no.gif" height="16" border="0" /> - Failure</h4>
+              <ul>
+                <li>When the observed discrepancies are not expected and the reason is <b>unclear</b>, not caused by any changes in CMSSW or GT</li>
+                <li>Due to some crashes in the code noticed for the first time in validation campaign — something needs to be fixed</li>
+                <li>Image:<br><a target="_blank" href="media/changes_expected.png"><img style="max-height: 150px;" src="media/failure.png"/></a></li>
+              </ul>
+            </li>
+            <li>
+              <h4><img width="16" alt="choice-yes" align="top" src="media/choice-yes.gif" height="16" border="0" /> - OK</h4>
+              <ul>
+                <li>When all comparisons look identical, no discrepancy or difference, no changes w.r.t. reference</li>
+              </ul>
+            </li>
+            <li>
+              <h4><img width="16" alt="wip" align="top" src="media/wip.gif" height="16" border="0" /> - In progress</h4>
+              <ul>
+                <li>When the observed discrepancies are not understood and still need further investigation</li>
+                <li>When the validation is still ongoing, not yet done, in progress, discussing with experts etc.</li>
+                <li>Image:<br><a target="_blank" href="media/changes_expected.png"><img style="max-height: 150px;" src="media/in_progress.png"/></a></li>
+              </ul>
+            </li>
+            <li>
+              <h4><img width="16" alt="mechanics" align="top" src="media/mechanics.gif" height="16" border="0" /> - Known issue</h4>
+              <ul>
+                <li>The observed discrepancies are not expected but the cause is understood due to some failure which marked as failure in the previous campaign but then the reason is found</li>
+                <li>Validators and experts know the issues and the fix is on the way</li>
+                <li>Image:<br><a target="_blank" href="media/changes_expected.png"><img style="max-height: 150px;" src="media/known_issue.png"/></a></li>
+              </ul>
+            </li>
+            <li>
+              <h4><img width="16" alt="minus" align="top" src="media/minus.gif" height="16" border="0" /> - Not yet done</h4>
+              <ul>
+                <li>Default value, not yet filled report will maintain this status until validators update it</li>
+              </ul>
+            </li>
+          </ul>
+        </div> <!--end of Legend <div>-->
+      </div> <!--end of row-->
+    </div> <!--end of container-->
+  </body>
+</html>

@@ -185,6 +185,10 @@ class AjaxApp(object):
         return simplejson.dumps(self.data)
 
     @cherrypy.expose
+    def legend(self, *args, **kwargs):
+        return self.loadPage('legend')
+
+    @cherrypy.expose
     def index(self, *args, **kwargs):
         username = self.get_username()
         fullname = self.get_fullname()
