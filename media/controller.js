@@ -474,6 +474,8 @@ app.directive("editModal", function($http){
         data_to_send["userName"] = scope.user_name;
         scope.pendingUpdate = true
 
+      // Replace unicode non-breaking space with space and line separator with newline
+      data_to_send["newComment"] = data_to_send["newComment"].replace(/\u00A0/, " ").replace(/\u2028/, "\n");
       // we convert all undefined values to null
       // so they wont be deleted by stringify method
       $http({method:'POST', url:'updateReleaseInfo', data:
