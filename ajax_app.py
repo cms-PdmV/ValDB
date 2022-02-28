@@ -159,9 +159,9 @@ class AjaxApp(object):
 
         self.api = API(self)
 
-    MAILING_LIST = ["hn-cms-relval@cern.ch",
-                    "hn-cms-trigger-performance@cern.ch",
-                    "hn-cms-muon-object-validation@cern.ch"]
+    MAILING_LIST = ["cmstalk+relval@dovecotmta.cern.ch",
+                    "cmstalk+trigger-performance@dovecotmta.cern.ch",
+                    "cmstalk+muon-object-validation@dovecotmta.cern.ch"]
 
     # Testing mailing list
     # MAILING_LIST = ["pdmvserv@cern.ch"]
@@ -502,7 +502,7 @@ Links: %s
 
             if (cat.upper() == 'HLT'): #if the category is HLT  -> send email to trigger hn and a reply to orginal with text to diff hn
                 hlt_msg_id = email.utils.make_msgid()
-                hn_address = 'hn-cms-trigger-performance@cern.ch'
+                hn_address = 'cmstalk+trigger-performance@dovecotmta.cern.ch'
                 if len(returnedStatusValueOld[1].split(",")) == 1:
                     self.sendMailOnChanges(msgText, msgSubject, None, hlt_msg_id,
                             userName, hn_address) #send message to other HN adress without threading
@@ -526,7 +526,7 @@ The full details was sent to %s find it there""" %(relName.upper(), cat.upper(),
 
             elif (cat.upper() == 'RECONSTRUCTION') and (statusKind.upper() == 'MUON'): #same for Reco Muon as for all HLT
                 reco_msg_id = email.utils.make_msgid()
-                hn_address = 'hn-cms-muon-object-validation@cern.ch'
+                hn_address = 'cmstalk+muon-object-validation@dovecotmta.cern.ch'
                 if len(returnedStatusValueOld[1].split(",")) == 1:
                     self.sendMailOnChanges(msgText, msgSubject, None, reco_msg_id,
                             userName, hn_address) #mail to Muon HN without threading
@@ -689,7 +689,7 @@ The full details was sent to %s find it there""" %(relName.upper(), cat.upper(),
             send_to += [diff_HN_adress]
 
         reply_to.append(send_from) #make a reply header to sender+receivers of the email.
-        reply_to.append("hn-cms-relval@cern.ch")
+        reply_to.append("cmstalk+relval@dovecotmta.cern.ch")
         msg['reply-to'] = COMMASPACE.join(reply_to)
         msg['To'] = COMMASPACE.join(send_to)
         msg['Date'] = formatdate(localtime=True)
