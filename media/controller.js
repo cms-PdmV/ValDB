@@ -384,13 +384,13 @@ function ModalCtrl($scope, $http) {
       });
     var local_subcat = $scope.catSubCat.split('/')[0];
      if (local_subcat == 'HLT'){
-       $scope.hn_address = 'hn-cms-trigger-performance@cern.ch';
+       $scope.hn_address = 'cmstalk+trigger-performance@dovecotmta.cern.ch';
      }else if( (local_subcat=='Reconstruction') && ($scope.validation_column_name.toUpperCase() == 'MUON') ){
-       $scope.hn_address = 'hn-cms-muon-object-validation@cern.ch';
+       $scope.hn_address = 'cmstalk+muon-object-validation@dovecotmta.cern.ch';
      }else if($scope.validation_column_name.toUpperCase() == 'INFO'){
        $scope.hn_address = "";
      }else{
-      $scope.hn_address = 'hn-cms-relval@cern.ch';
+      $scope.hn_address = 'cmstalk+relval@dovecotmta.cern.ch';
      };
     //Validators script
 
