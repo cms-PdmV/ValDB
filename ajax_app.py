@@ -85,7 +85,7 @@ class API(object):
 
     @cherrypy.expose
     def add_release(self, release_name, catSubCat, relmon_url=False):
-        raise cherrypy.InternalRedirect('/permissionErrorMessage')
+        return "Feature disabled. Please use the new ValDB version"
         catSubCatList = catSubCat.split(',')
         if not relmon_url:
             relmon_url = ""
