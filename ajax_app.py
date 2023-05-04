@@ -85,6 +85,7 @@ class API(object):
 
     @cherrypy.expose
     def add_release(self, release_name, catSubCat, relmon_url=False):
+        raise cherrypy.InternalRedirect('/permissionErrorMessage')
         catSubCatList = catSubCat.split(',')
         if not relmon_url:
             relmon_url = ""
@@ -216,7 +217,13 @@ class AjaxApp(object):
                </head>
                <body>
                <body style="background-color: #ADD8E6">
-               <p style="text-align:center; font-family:verdana"><font color="red"> You don't have privileges to use this method! </font></p>
+               <p style="text-align:center; font-family:verdana">
+                Dear user,
+                You don't have privileges to perform this action!
+                This ValDB application version is being decomissioned.
+                Therefore, all the actions that create, update and delete content have been disabled
+                Please use the new ValDB version for writing reports and append content
+               </p>
                </head>
                </html>"""
 
@@ -236,6 +243,7 @@ class AjaxApp(object):
 
     @cherrypy.expose
     def checkValidatorsRights (self):
+        raise cherrypy.InternalRedirect('/permissionErrorMessage')
         if not self.check_validator():
             raise cherrypy.InternalRedirect('/permissionErrorMessage')
         cl = cherrypy.request.headers['Content-Length']
@@ -289,7 +297,7 @@ class AjaxApp(object):
     def addNewRelease(self, sendMail, categ, subCat, relName, statusNames,
             statusValues, statComments, statAuthors, statLinks, mailID,
             relMonURL, **kwargs):
-
+        raise cherrypy.InternalRedirect('/permissionErrorMessage')
         if not (self.check_admin() or self.check_validator()):
             raise cherrypy.InternalRedirect('/permissionErrorMessage')
         if len(statusNames) == len(statusValues) and len(statusNames) == len(statComments) and len(statusNames) == len(statAuthors) and len(statusNames) == len(statLinks):
@@ -342,6 +350,7 @@ class AjaxApp(object):
 
     @cherrypy.expose
     def addNewReleaseUpdated(self):
+        raise cherrypy.InternalRedirect('/permissionErrorMessage')
         if not (self.check_admin()):
             raise cherrypy.InternalRedirect('/permissionErrorMessage')
         cl = cherrypy.request.headers['Content-Length']
@@ -448,6 +457,7 @@ class AjaxApp(object):
 
     @cherrypy.expose
     def updateReleaseInfo(self):
+        raise cherrypy.InternalRedirect('/permissionErrorMessage')
         if not (self.check_admin() or self.check_validator()):
             raise cherrypy.InternalRedirect('/permissionErrorMessage')
         cl = cherrypy.request.headers['Content-Length']
@@ -564,6 +574,7 @@ The full details was sent to %s find it there""" %(relName.upper(), cat.upper(),
 
     @cherrypy.expose
     def addNewUser (self):
+        raise cherrypy.InternalRedirect('/permissionErrorMessage')
         if not self.check_admin():
             raise cherrypy.InternalRedirect('/permissionErrorMessage')
         cl = cherrypy.request.headers['Content-Length']
@@ -633,6 +644,7 @@ The full details was sent to %s find it there""" %(relName.upper(), cat.upper(),
 
     @cherrypy.expose
     def removeUser (self):
+        raise cherrypy.InternalRedirect('/permissionErrorMessage')
         if not self.check_admin():
             raise cherrypy.InternalRedirect('/permissionErrorMessage')
         cherrypy.response.headers['Content-Type'] = 'application/json'
